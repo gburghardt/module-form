@@ -1,0 +1,23 @@
+{
+	"name": "module-form",
+	"description": "",
+	"authors": [
+		"Greg Burghardt <greg_burghardt@yahoo.com>"
+	],
+	"version": "1.0.0",
+	"license": "MIT",
+	"repository": { "type": "git", "url": "https://github.com/gburghardt/module-form.git" },
+	"main": [
+	],
+	"dependencies": {
+		"module-manager": "file:///c/Users/BurghardtG/code/git/module-manager/.git#development",
+		"module-base": "file:///c/Users/BurghardtG/code/git/module-base/.git#master",
+		"module-utils": "file:///c/Users/BurghardtG/code/git/module-utils/.git#master",
+		"reaper": "~1.0.0",
+		"cerealizer": "~0.0.1"
+	},
+	"devDependencies": {
+		"jasmine": "~2.0",
+		"mocking_bird": "0.0.1"
+	}
+}
