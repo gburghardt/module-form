@@ -16,7 +16,6 @@ src_files:
   - bower_components/callbacks/src/callbacks/utils.js
   - bower_components/cerealizer/src/cerealizer.js
   - bower_components/cerealizer/src/cerealizer/query_string.js
-  - bower_components/dom_event_delegator/lib/dom/events/delegator.js
   - bower_components/mocking_bird/src/mocking_bird.js
   - bower_components/mocking_bird/src/mocking_bird/xml_http_request.js
   - bower_components/reaper/src/reaper.js
@@ -24,8 +23,6 @@ src_files:
   - bower_components/module-utils/src/module/utils.js
   - bower_components/module-utils/src/module/utils/property_cache.js
   - bower_components/module-utils/src/module/utils/bootstrap.js
-  - bower_components/module-utils/src/module/utils/delegator.js
-  - bower_components/module-utils/src/module/utils/delegator.js
   - src/module/form_module.js
 
 # stylesheets

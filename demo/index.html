@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Form Module Demo</title>
+</head>
+<body>
+	<h1>Form Module Demo</h1>
+	<p>See how you can easily Ajaxify forms.</p>
+	<p>Open your browser's console to see the form data.</p>
+
+	<form method="POST" action="/blogs/23/posts" data-actions="blogPost.submit"
+		data-modules="Module.FormModule"
+		data-module-options='{ "controllerId": "blogPost", "defaultModule": true }'>
+		<h2>Blog Post Example</h2>
+		<p>
+			<label>Title: <input type="text" name="post[title]" size="80"></label>
+		</p>
+		<p>
+			<label for="blog-body">Body Text</label><br>
+			<textarea name="post[body]" cols="80" rows="24"></textarea>
+		</p>
+		<p>
+			<input type="hidden" name="post[blog_id]" value="23">
+			<button type="button" data-actions="blogPost.cancel">Cancel</button>
+			<button type="submit">Save</button>
+		</p>
+	</form>
+
+	<hr>
+
+	<div data-form-method="POST" data-form-action="/search" data-actions="search.handleEnterpress"
+		data-modules="Module.FormModule"
+		data-module-options='{ "controllerId": "search" }'>
+		<h2><label>Search</label></h2>
+		<p>
+			<input type="text" name="search.keywords" size="80">
+		</p>
+		<p>
+			<label>Start: <input type="text" name="search.startDate" size="20"></label>
+		</p>
+		<p>
+			<label>End: <input type="text" name="search.endDate" size="20"></label>
+		</p>
+		<fieldset>
+			<legend>Types</legend>
+			<ul>
+				<li><label><input type="checkbox" name="search.types[0]" value="posts"> Posts</label></li>
+				<li><label><input type="checkbox" name="search.types[1]" value="pictures"> Pictures</label></li>
+				<li><label><input type="checkbox" name="search.types[2]" value="people"> People</label></li>
+				<li><label><input type="checkbox" name="search.types[3]" value="groups"> Groups</label></li>
+			</ul>
+		</fieldset>
+		<p>
+			<button type="button" data-actions="search.handleClickSubmit">Search</button>
+		</p>
+	</div>
+
+	<script type="text/javascript" src="../bower_components/inherit.js/lib/function.js"></script>
+	<script type="text/javascript" src="../bower_components/callbacks/src/callbacks.js"></script>
+	<script type="text/javascript" src="../bower_components/callbacks/src/callbacks/utils.js"></script>
+	<script type="text/javascript" src="../bower_components/cerealizer/src/cerealizer.js"></script>
+	<script type="text/javascript" src="../bower_components/cerealizer/src/cerealizer/query_string.js"></script>
+	<script type="text/javascript" src="../bower_components/element_store/lib/element_store.js"></script>
+	<script type="text/javascript" src="../bower_components/element_store/lib/element_store/utils.js"></script>
+	<script type="text/javascript" src="../bower_components/beacon/src/beacon.js"></script>
+	<script type="text/javascript" src="../bower_components/beacon/src/beacon/dispatcher.js"></script>
+	<script type="text/javascript" src="../bower_components/beacon/src/beacon/application_events.js"></script>
+	<script type="text/javascript" src="../bower_components/beacon/src/beacon/notifications.js"></script>
+	<script type="text/javascript" src="../bower_components/module-manager/src/module.js"></script>
+	<script type="text/javascript" src="../bower_components/module-manager/src/module/factory.js"></script>
+	<script type="text/javascript" src="../bower_components/module-manager/src/module/front_controller_module_observer.js"></script>
+	<script type="text/javascript" src="../bower_components/module-manager/src/module/manager.js"></script>
+	<script type="text/javascript" src="../bower_components/module-manager/src/module/lazy_loader.js"></script>
+	<script type="text/javascript" src="../bower_components/module-manager/src/module/meta_data.js"></script>
+	<script type="text/javascript" src="../bower_components/module-manager/src/module/provider.js"></script>
+	<script type="text/javascript" src="../bower_components/module-base/src/module/base.js"></script>
+	<script type="text/javascript" src="../bower_components/module-utils/src/module/utils.js"></script>
+	<script type="text/javascript" src="../bower_components/module-utils/src/module/utils/property_cache.js"></script>
+	<script type="text/javascript" src="../bower_components/module-utils/src/module/utils/bootstrap.js"></script>
+	<script type="text/javascript" src="../bower_components/module-utils/src/module/utils/events.js"></script>
+	<script type="text/javascript" src="../bower_components/module-utils/src/module/utils/element_store.js"></script>
+	<script type="text/javascript" src="../bower_components/oxydizr/src/Oxydizr.js"></script>
+	<script type="text/javascript" src="../bower_components/oxydizr/src/Oxydizr/FrontController.js"></script>
+	<script type="text/javascript" src="../bower_components/reaper/src/reaper.js"></script>
+	<script type="text/javascript" src="../src/module/form_module.js"></script>
+	<script type="text/javascript">
+
+		Module.FormModule.prototype._beforeSubmit = function(data, event, element, params) {
+			console.info("Before Submit (" + this.controllerId + ")");
+			console.dir({ data: data, event: event, element: element, params: params});
+			return false;
+		};
+
+		// Create the module manager
+		var moduleManager = new Module.Manager();
+
+		// Assign the module factory
+		moduleManager.factory = new Module.Factory();
+
+		// Wire up the front controller to handle DOM events
+		moduleManager.moduleObserver = new Module.FrontControllerModuleObserver(
+			 new Oxydizr.FrontController().init(document.documentElement));
+
+		moduleManager
+			.init()                                     // ready this manager for use
+			.eagerLoadModules(document.documentElement) // load all non lazy loaded modules
+			.lazyLoadModules(document.documentElement); // monitor page for modules that need lazy loading
+
+		// Set focus to the "default" module on the page
+		moduleManager.focusDefaultModule();
+
+	</script>
+</body>
+</html>

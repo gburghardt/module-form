@@ -2,14 +2,14 @@ Module.FormModule = Module.Base.extend({
 
 	prototype: {
 
-		actions: {
-			enterpress: [
-				"submit"
-			],
-			submit: [
-				"submit"
-			]
-		},
+		// actions: {
+		// 	enterpress: [
+		// 		"submit"
+		// 	],
+		// 	submit: [
+		// 		"submit"
+		// 	]
+		// },
 
 		callbacks: {
 			beforeReady: [
@@ -46,12 +46,27 @@ Module.FormModule = Module.Base.extend({
 			return true;
 		},
 
+		handleClickSubmit: function click(event, element, params) {
+			this.submit(event, element, params);
+		},
+
+		handleEnterpress: function enterpress(event, element, params) {
+			this.submit(event, element, params);
+		},
+
 		_getData: function _getData() {
 			return this.extractor.getData(this.element);
 		},
 
 		_getTransport: function _getTransport() {
 			return new XMLHttpRequest();
+		},
+
+		onControllerRegistered: function(frontController, controllerId) {
+			frontController.registerEvents("enterpress");
+		},
+
+		onControllerUnregistered: function(frontController) {
 		},
 
 		_sendRequest: function _sendRequest(data) {
